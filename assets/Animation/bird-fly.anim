@@ -1,0 +1,42 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "bird-fly",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.7,
+  "sample": 60,
+  "speed": 0.5,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "bird": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -273,
+                113
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -274,
+                215
+              ]
+            },
+            {
+              "frame": 1.7,
+              "value": [
+                -274,
+                114
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}
