@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "bottle31",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.0166666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "4ee22ec9-5c67-4d02-9a40-1a2641d6ae66"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "d030c226-5457-4bed-9359-19334cf701fe"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "e439e756-ced3-4ecd-8655-73dce4ea5714"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

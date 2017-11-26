@@ -8,15 +8,35 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        animation_monster: {
+            default: null,
+            type: cc.Animation,
+            tooltip: "怪物运动"
+        },
+        atlas_monsters: {
+            default: null,
+            type: cc.SpriteAtlas,
+            tooltip: "怪物图集"
+        }
     },
 
     // use this for initialization
     onLoad: function () {
+        var monsterAni = this.animation_monster;
+        // monsterAni.on("play", this._onPlay, this);
         this.roadIndex = 0;// 当前移动路径的前缀
         this.speed = 0;
         //加载属性配置
-        cc.Sprite
+    },
+    _onPlay(event){
+        cc.log("怪物运动", event);
+    },
+    //根据怪物名称渲染怪物
+    loadMonster(name){
+        let monsterName = name;
+        let frame = this.atlas_monsters.getSpriteFrame(monsterName);
+        cc.log("根据怪物名称渲染怪物", name, frame)
+        this.node.getComponent(cc.Sprite).spriteFrame = frame;
     },
     loadProperty(obj){
         //实例化怪物
@@ -43,7 +63,7 @@ cc.Class({
             this.node.runAction(cc.flipX(true));
         }
         var distance = cc.pDistance(this.road[this.roadIndex], this.road[this.roadIndex + 1]);
-        cc.log(distance)
+        cc.log(distance);
         var time = distance / this.speed;
         var moveTo = cc.moveTo(time, this.road[this.roadIndex + 1]);
         var callback = cc.callFunc(function () {

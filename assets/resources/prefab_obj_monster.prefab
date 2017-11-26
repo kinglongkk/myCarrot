@@ -22,13 +22,10 @@
       },
       {
         "__id__": 3
-      },
-      {
-        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 5
+      "__id__": 4
     },
     "_id": "",
     "_opacity": 255,
@@ -99,23 +96,11 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
-  },
-  {
-    "__type__": "cc.Animation",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
     "_enabled": true,
-    "_defaultClip": null,
-    "_clips": [
-      {
-        "__uuid__": "651ab875-c937-48b7-a763-2996fe56b496"
-      }
-    ],
-    "playOnLoad": true
+    "animation_monster": null,
+    "atlas_monsters": {
+      "__uuid__": "a69a75be-3b8d-4bc4-974f-33b320f2a778"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -2,11 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        node_tiledMap: {
-            default: null,
-            type: cc.TiledMap,
-            tooltip: "关卡等级瓦片地图"
-        },
         prefab_monster: {
             default: null,
             type: cc.Prefab,
@@ -36,11 +31,14 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        L_GAME_MGR().loadLevelData(0);
         this.ZOrderEnum = {};
         this._tiledMapRectArrayMap = [];
         this.tiledMapRectMapEnemu = {};
-
-        this._loadProperty();
+        this._currGroupCreatedMonsterCount = 0;
+        this.currGroupCreatedMonsterSum = 0;
+        this._currGroupCreatedMonsterSum = 0;
+            this._loadProperty();
         //加载瓦片地图
         this._loadTiledMap();
         this._loadStartAndEnd();
@@ -138,24 +136,54 @@ cc.Class({
             }
         }
     },
+    //加载怪物
     _loadNextGroupMonster(){
-        this._createMonster();
+        if (L_GAME_MGR().getGroup() > L_GAME_MGR().getMaxGroup()) {
+            cc.log("GPMainLayer.loadNextGroupMonster() : 怪物添加完毕");
+        }
+        L_GAME_MGR()._currMonsterDataPool = L_GAME_MGR().popNextMonsterGroupData();
+        L_GAME_MGR()._currMonsterPool[L_GAME_MGR().getGroup() - 1] = [];
+
+        this._currGroupCreatedMonsterCount = 0;
+        //怪物总数统计
+        this._currGroupCreatedMonsterSum = L_GAME_MGR().getCurrGroupMonsterSum();
+
+        var groupDelay = cc.delayTime(L_GAME_MGR().getGroupInterval());
+        //延迟事件
+        var enemyDelay = cc.delayTime(L_GAME_MGR().getEnemyInterval());
+        var callback = cc.callFunc(this._createMonster.bind(this));
+        this.node.runAction(cc.sequence(enemyDelay, callback).repeat(this._currGroupCreatedMonsterSum));
+        /*var createMonsterAction = cc.sequence(enemyDelay, callback).repeat(this._currGroupCreatedMonsterSum)
+        var finalAction = cc.sequence(groupDelay, createMonsterAction);
+        this.node.runAction(finalAction);*/
+        // this._createMonster();
     },
     _createMonster(){
-        cc.log("monster is onLoad", this.node);
+
+        var data = L_GAME_MGR()._currMonsterDataPool[0];
+        cc.log("monster is onLoad", data);
+        //创建怪物数量+1
+        this._currGroupCreatedMonsterCount++;
         var monsterData = {
             road : this._roadPointArray,
-            speed : 80,
-            index : 10
+            speed : data.speed,
+            index : data.index
         };
         var monsterNode = cc.instantiate(this.prefab_monster);
-        monsterNode.parent = this.node;
-        monsterNode.setPosition(this._roadPointArray[0]);
-        // monsterNode.setPosition(cc.p(this._roadPointArray[0].x - cc.winSize.width, this._roadPointArray[0].y - cc.winSize.height));
-        // monsterNode.setPosition(cc.p(-300,173.3));
         var comp_monster = monsterNode.getComponent("prefab_obj_monster");
+        comp_monster.loadMonster(data.name);
+        monsterNode.parent = this.node;
+        L_GAME_MGR()._currMonsterPool[L_GAME_MGR().getGroup() - 1].push(monsterNode);
+        monsterNode.setPosition(this._roadPointArray[0]);
+        var monsterAni = monsterNode.getComponent(cc.Animation);
+        cc.log("monsterAni", monsterAni);
+        // monsterAni.play();
+
         comp_monster.loadProperty(monsterData);
         comp_monster.run();
+
+        //删除掉第一个数据
+        L_GAME_MGR()._currMonsterDataPool.splice(0, 1);
     },
 
     // called every frame, uncomment this function to activate update callback
