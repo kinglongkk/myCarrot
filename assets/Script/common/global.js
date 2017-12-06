@@ -15,6 +15,14 @@ function getObjectTarget(name) {
     return LL[name];
 }
 
+//全局的事件监听与派送
+window.L_LISTENER = function () {
+    return getObjectTarget("inGlobal_listener");
+}
+//数据对象属性
+window.L_OBJ = function () {
+    return getObjectTarget("inGlobal_dataObject");
+}
 //游戏管理
 window.L_GAME_MGR = function () {
     return getObjectTarget("gameManager");

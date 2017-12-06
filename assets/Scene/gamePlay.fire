@@ -903,7 +903,6 @@
       "__id__": 6
     },
     "_enabled": true,
-    "node_tiledMap": null,
     "prefab_monster": {
       "__uuid__": "10f9a2fc-4498-4c42-92e2-ecf17ff365ca"
     }

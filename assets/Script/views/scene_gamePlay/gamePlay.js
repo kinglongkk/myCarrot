@@ -7,30 +7,11 @@ cc.Class({
             type: cc.Prefab,
             tooltip: "怪物预制体"
         }
-
-
-        /*tiledMap            : null, // 瓦片地图
-        tileSize            : null, // 瓦片大小
-        roadPointArray      : [],   // 怪物路径
-
-        ZOrderEnum          : {},   // 对象层级枚举
-
-        carrot              : {},   // 萝卜对象
-        carrotHpBg          : {},   // 萝卜[血量背景]
-        carrotHpText        : {},   // 萝卜[血量]
-
-        tiledMapRectArray   : [],   // 瓦片地图区域[二维区域]
-        tiledMapRectArrayMap: [],   // 瓦片地图区域映射
-        tiledMapRectMapEnemu: {},   // 瓦片地图区域映射枚举
-        touchWarningNode    : null, // 触摸警告节点
-        towerPanel          : null, // 构建塔的面板
-
-        currGroupCreatedMonsterCount : 0,
-        currGroupCreatedMonsterSum : 0,*/
     },
 
     // use this for initialization
     onLoad: function () {
+        this._registerClick(this.node);
         L_GAME_MGR().loadLevelData(0);
         this.ZOrderEnum = {};
         this._tiledMapRectArrayMap = [];
@@ -45,6 +26,11 @@ cc.Class({
         this._loadRoadPointArray();
         // 加载[下一组怪物]
         this._loadNextGroupMonster();
+    },
+    _registerClick(targetNode){
+        targetNode.on(cc.Node.EventType.TOUCH_START, function (event) {
+            cc.log(event.touch.getLocation());
+        })
     },
     // 加载[属性]
     _loadProperty : function(){

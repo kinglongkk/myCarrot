@@ -65,6 +65,7 @@ cc.Class({
                 break;
             case "btn_adventure_normal_CN":
                 cc.log("点击了", clickBtnName, "这个按钮");
+                cc.director.loadScene("gamePlay");
                 break;
             case "btn_boss_normal_CN":
                 cc.log("点击了", clickBtnName, "这个按钮");
